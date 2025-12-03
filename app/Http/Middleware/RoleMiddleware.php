@@ -15,8 +15,9 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, $role): Response
     {
+         $user = $request->user(); // Récupération de l'utilisateur
         // from the request you can access user instance and role is the column in db
-        if($request->user()->role === $role) {
+        if($user && $user->role === $role) {
              return $next($request);
         }
 
