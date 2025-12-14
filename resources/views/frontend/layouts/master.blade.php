@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{asset('frontend/css/jquery.exzoom.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/toastr.min.css')}}">
+    <link href="{{asset('frontend/css/iziToast.min.css')}}" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('frontend/css/responsive.css')}}">
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
 </head>
@@ -60,7 +61,7 @@
       <!--==============================    MENU END
     ==============================-->
 
-      @yield('content');
+      @yield('content')
    
     <!--=============================
         FOOTER START
@@ -107,21 +108,45 @@
     <script src="{{asset('frontend/js/wow.min.js')}}"></script>
     <!-- ex zoom js -->
     <script src="{{asset('frontend/js/jquery.exzoom.js')}}"></script>
+     <script src="{{asset('frontend/js/iziToast.min.js')}}"></script> 
 
-    <script src="{{asset('frontend/js/toastr.min.js')}}"></script>
-
+    <!-- <script src="{{asset('frontend/js/toastr.min.js')}}"></script> -->
+       <!-- @flasher_render -->
     <!--main/custom js-->
+    
     <script src="{{asset('frontend/js/main.js')}}"></script>
 
-    <script>
-        toastr.options.progressBar = true;
-        @if ($errors->any()) 
-          @foreach ($errors->all() as $error) 
-            toastr.error("{{$error}}")
-          @endforeach
-        
-        @endif
-    </script>
+   
+
+
+
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+
+    @if (session('status'))
+        iziToast.success({
+            title: 'Info',
+            message: {!! json_encode(session('status')) !!},
+            position: 'topRight',
+        });
+    @endif
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            iziToast.error({
+                title: 'Erreur',
+                message: {!! json_encode($error) !!},
+                position: 'topRight',
+            });
+        @endforeach
+    @endif
+
+});
+</script>
+
+
+
+
 
 </body>
 

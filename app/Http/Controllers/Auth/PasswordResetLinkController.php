@@ -29,16 +29,45 @@ class PasswordResetLinkController extends Controller
             'email' => ['required', 'email'],
         ]);
 
+        $status = Password::sendResetLink(
+        $request->only('email')
+       );
+
+      
+
+      
+
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we
         // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+     
 
-        return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                        ->withErrors(['email' => __($status)]);
+
+         // Gestion des différents statuts
+         switch ($status) {
+            case Password::RESET_LINK_SENT:
+               return back()->with('status', 'Reset link sent to your mail.');
+
+            case Password::RESET_THROTTLED:
+               return back()->with('status', 'Please wait before retrying.');
+
+            case Password::INVALID_USER:
+               return back()
+               ->withInput($request->only('email'))
+               ->withErrors(['email' => 'No user found with this email.']);
+
+            default:
+             return back()
+              ->withInput($request->only('email'))
+              ->withErrors(['email' => __($status)]);
+        }
+
+
+        return back()->with('success', 'Test flash message!');
+
+
+
+
+
     }
 }

@@ -36,7 +36,7 @@
                         <div class="fp__login_area">
                             <h2>Welcome back!</h2>
                             <p>sign up to continue</p>
-                             <form method="POST" action="{{ route('register') }}">
+                             <form method="POST" action="{{ route('register') }}"  novalidate>
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-12">

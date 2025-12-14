@@ -35,7 +35,7 @@
                         <div class="fp__login_area">
                             <h2>Welcome back!</h2>
                             <p>sign in to continue</p>
-                            <form method="POST" action="{{ route('login') }}">
+                            <form method="POST" action="{{ route('login') }}"  novalidate>
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-12">
@@ -62,7 +62,7 @@
                                                     Remeber Me
                                                 </label>
                                             </div>
-                                            <a href="forgot_password.html">Forgot Password ?</a>
+                                            <a href="{{route('password.request')}}">Forgot Password ?</a>
                                         </div>
                                     </div>
                                     
