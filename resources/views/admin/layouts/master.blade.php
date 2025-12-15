@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+     <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>General Dashboard &mdash; Stisla</title>
 
@@ -25,14 +25,17 @@
 
   gtag('config', 'UA-94034622-3');
 </script>
-<!-- /END GA --></head>
+<!-- /END GA -->
+</head>
 
 <body>
   <div id="app">
     <div class="main-wrapper main-wrapper-1">
+     
       <div class="navbar-bg"></div>
+   
+      
        @include('admin.layouts.sidebar')
-
       <!-- Main Content -->
       <div class="main-content">
         @yield('content')
@@ -47,7 +50,6 @@
       </footer>
     </div>
   </div>
-
   <!-- General JS Scripts -->
   <script src="{{asset('admin/assets/modules/jquery.min.js')}}"></script>
   <script src="{{asset('admin/assets/modules/popper.js')}}"></script>
@@ -61,7 +63,6 @@
   <!-- Template JS File -->
   <script src="{{asset('admin/assets/js/scripts.js')}}"></script>
   <script src="{{asset('admin/assets/js/custom.js')}}"></script>
-
 
   <script>
    document.addEventListener('DOMContentLoaded', function () {
