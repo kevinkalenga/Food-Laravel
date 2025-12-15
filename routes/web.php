@@ -9,6 +9,9 @@ use App\Http\Controllers\Admin\AdminAuthController;
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 
  Route::get('admin/login', [AdminAuthController::class, 'index'])->name('admin.login');
+ Route::get('/dashboard', [AdminAuthController::class, 'index'])->name('dashboard');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -1,39 +1,60 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('password.store') }}">
-        @csrf
 
-        <!-- Password Reset Token -->
-        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Login &mdash; Stisla</title>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="{{asset('admin/assets/modules/bootstrap/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{asset('admin/assets/modules/fontawesome/css/all.min.css')}}">
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="{{asset('admin/assets/modules/bootstrap-social/bootstrap-social.css')}}">
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{{asset('admin/assets/css/style.css')}}">
+  <link rel="stylesheet" href="{{asset('admin/assets/css/components.css')}}">
+ 
+<!-- Start GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
+  gtag('config', 'UA-94034622-3');
+</script>
+<!-- /END GA --></head>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+<body>
+  <div id="app"> 
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Reset Password') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+<!--  -->
+
+
+
+  <!-- General JS Scripts -->
+  <script src="{{asset('admin/assets/modules/jquery.min.js')}}"></script>
+  <script src="{{asset('admin/assets/modules/popper.js')}}"></script>
+  <script src="{{asset('admin/assets/modules/tooltip.js')}}"></script>
+  <script src="{{asset('admin/assets/modules/bootstrap/js/bootstrap.min.js')}}"></script>
+  <script src="{{asset('admin/assets/modules/nicescroll/jquery.nicescroll.min.js')}}"></script>
+  <script src="{{asset('admin/assets/modules/moment.min.js')}}"></script>
+  <script src="{{asset('admin/assets/js/stisla.js')}}"></script>
+ 
+  
+  <!-- JS Libraies -->
+
+  <!-- Page Specific JS File -->
+  
+  <!-- Template JS File -->
+  <script src="{{asset('admin/assets/js/scripts.js')}}"></script>
+  <script src="{{asset('admin/assets/js/custom.js')}}"></script>
+
+
+
+</body>
+</html>

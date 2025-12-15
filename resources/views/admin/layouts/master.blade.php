@@ -14,6 +14,8 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('admin/assets/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('admin/assets/css/components.css')}}">
+  <!-- iZitoast -->
+    <link rel="stylesheet" href="{{asset('admin/assets/css/iziToast.min.css')}}">
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
 <script>
@@ -29,7 +31,7 @@
   <div id="app">
     <div class="main-wrapper main-wrapper-1">
       <div class="navbar-bg"></div>
-      @include('admin.layouts.sidebar')
+       @include('admin.layouts.sidebar')
 
       <!-- Main Content -->
       <div class="main-content">
@@ -37,7 +39,7 @@
       </div>
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+          Copyright &copy; 2025 <div class="bullet"></div> Design By <a href="https://nauval.in/">Kevin Web 2025</a>
         </div>
         <div class="footer-right">
           
@@ -53,10 +55,36 @@
   <script src="{{asset('admin/assets/modules/bootstrap/js/bootstrap.min.js')}}"></script>
   <script src="{{asset('admin/assets/modules/nicescroll/jquery.nicescroll.min.js')}}"></script>
   <script src="{{asset('admin/assets/js/stisla.js')}}"></script>
+   <script src="{{asset('admin/assets/js/iziToast.min.js')}}"></script>
   
   
   <!-- Template JS File -->
   <script src="{{asset('admin/assets/js/scripts.js')}}"></script>
   <script src="{{asset('admin/assets/js/custom.js')}}"></script>
+
+
+  <script>
+   document.addEventListener('DOMContentLoaded', function () {
+
+    @if (session('status'))
+        iziToast.success({
+            title: 'Info',
+            message: {!! json_encode(session('status')) !!},
+            position: 'topRight',
+        });
+    @endif
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            iziToast.error({
+                title: 'Erreur',
+                message: {!! json_encode($error) !!},
+                position: 'topRight',
+            });
+        @endforeach
+    @endif
+
+  });
+</script>
 </body>
 </html>
