@@ -21,24 +21,35 @@ class AdminAuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('admin')->attempt($credentials)) {
 
-            // 🔒 Vérification du rôle
-            if (Auth::user()->role !== 'admin') {
-                Auth::logout();
+        if (Auth::guard('admin')->user()->role !== 'admin') {
+            Auth::guard('admin')->logout();
 
-                return back()->withErrors([
-                    'email' => 'You must be an admin so as to hava the access',
-                ]);
-            }
-
-            $request->session()->regenerate();
-
-            return redirect()->route('admin.dashboard');
+            return back()->withErrors([
+                'email' => 'Accès réservé aux administrateurs',
+            ]);
         }
+
+        $request->session()->regenerate();
+
+        return redirect()->route('admin.dashboard');
+    }
 
         return back()->withErrors([
             'email' => 'Invalide credentials',
         ]);
-    }
+    } 
+
+
+
+    public function logout(Request $request)
+{
+    Auth::guard('admin')->logout();        // déconnecte le guard admin
+    $request->session()->invalidate();      // invalide la session
+    $request->session()->regenerateToken(); // nouveau token CSRF
+
+    return redirect()->route('admin.login'); // redirige vers login admin
+}
+
 }
