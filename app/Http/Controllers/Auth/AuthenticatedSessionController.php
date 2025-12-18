@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(route('admin.dashboard', absolute: false))->with('status', 'Loggin successfully!');
         }
         // if role is not admin 
-        return redirect()->intended(route('dashboard', absolute: false))->with('status', 'Loggin successfully!');
+        return redirect()->intended(route('dashboard_user', absolute: false))->with('status', 'Loggin successfully!');
     }
 
     /**

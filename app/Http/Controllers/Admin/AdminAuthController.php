@@ -14,7 +14,7 @@ class AdminAuthController extends Controller
     }
 
 
-      public function login(Request $request)
+    public function login(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -22,12 +22,23 @@ class AdminAuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+
+            // 🔒 Vérification du rôle
+            if (Auth::user()->role !== 'admin') {
+                Auth::logout();
+
+                return back()->withErrors([
+                    'email' => 'You must be an admin so as to hava the access',
+                ]);
+            }
+
             $request->session()->regenerate();
-            return redirect()->route('dashboard');
+
+            return redirect()->route('admin.dashboard');
         }
 
         return back()->withErrors([
-            'email' => 'Identifiants incorrects',
+            'email' => 'Invalide credentials',
         ]);
     }
 }

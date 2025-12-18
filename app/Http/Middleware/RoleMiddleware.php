@@ -8,20 +8,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next, $role): Response
     {
-         $user = $request->user(); // Récupération de l'utilisateur
-        // from the request you can access user instance and role is the column in db
-        if($user && $user->role === $role) {
-             return $next($request);
+        if (!auth()->check()) {
+            abort(401); // Non authentifié
         }
 
-        return to_route('dashboard');
-      
+        if (auth()->user()->role !== $role) {
+            abort(403); // Accès interdit
+        }
+
+        return $next($request);
     }
 }
+

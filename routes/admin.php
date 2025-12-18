@@ -1,27 +1,29 @@
-<?php 
+<?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\ProfileController;
 
+// ----------------------
+// ROUTES ADMIN PROTÉGÉES
+// ----------------------
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->group(function () {
 
+        // Dashboard admin
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])
+            ->name('admin.dashboard');
 
+        // Profile admin
+        Route::get('/profile', [ProfileController::class, 'index'])
+            ->name('admin.profile');
 
+        Route::put('/profile', [ProfileController::class, 'updateProfile'])
+            ->name('admin.profile.update');
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
-   
-      
-      // Auth Routes
+        Route::put('/profile/password', [ProfileController::class, 'updatePassword'])
+            ->name('admin.profile.password.update');
+    });
 
-      // Route::get('/auth', [AdminAuthController::class, 'index'])->name('auth');
-      
-      
-      Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-
-      // Profile Routes
-      Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-      Route::put('/profile', [ProfileController::class, 'updateProfile'])->name('update');
-      Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile_password_update');
-
-});
 

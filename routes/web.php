@@ -1,31 +1,48 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\DashboardController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminAuthController;
 
-
+// Page d'accueil
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 
- Route::get('admin/login', [AdminAuthController::class, 'index'])->name('admin.login');
+// ----------------------
+// LOGIN ADMIN (PUBLIC)
+// ----------------------
+Route::get('admin/login', [AdminAuthController::class, 'index'])->name('admin.login');
 Route::post('admin/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
 
+// ----------------------
+// LOGIN USER (PUBLIC)
+// ----------------------
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
 
-  // Route::get('/dashboard', [AdminAuthController::class, 'index'])->name('dashboard');
+// POST login user
+Route::post('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store'])
+    ->name('login.post');
 
+// ----------------------
+// DASHBOARD USER (PROTÉGÉ)
+// ----------------------
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard_user');
 
-
-
-
-
-Route::middleware('auth')->group(function () {
+    // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// ----------------------
+// INCLUDE admin.php
+// ----------------------
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
+
 
 
