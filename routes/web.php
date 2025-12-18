@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\DashboardController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Admin\AdminAuthController;
 
 // Page d'accueil
@@ -31,11 +31,9 @@ Route::post('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController
 // ----------------------
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard_user');
+    Route::put('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
 
-    // Profile routes
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
 // ----------------------
