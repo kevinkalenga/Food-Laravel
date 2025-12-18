@@ -120,8 +120,8 @@
                                             </h4>
 
                                             <div class="personal_info_text">
-                                                <p><span>Name:</span> Hasib Ahmed</p>
-                                                <p><span>Email:</span> hasibahmed@gmail.com</p>
+                                                <p><span>Name:</span>{{Auth()->user()->name}}</p>
+                                                <p><span>Email:</span>{{Auth()->user()->email}}</p>
                                                 
                                             </div>
 
@@ -133,13 +133,13 @@
                                                         <div class="col-12">
                                                             <div class="fp__comment_imput_single">
                                                                 <label>name</label>
-                                                                <input type="text" placeholder="Name" name="name">
+                                                                <input type="text" placeholder="Name" name="name" value="{{Auth()->user()->name}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-12 col-lg-12">
                                                             <div class="fp__comment_imput_single">
                                                                 <label>email</label>
-                                                                <input type="email" placeholder="Email" name="email">
+                                                                <input type="email" placeholder="Email" name="email" value="{{Auth()->user()->email}}">
                                                             </div>
                                                         </div>
                                                         
