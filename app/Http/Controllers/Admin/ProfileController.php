@@ -16,6 +16,7 @@ class ProfileController extends Controller
    }
    public function updateProfile(ProfileUpdateRequest $request)
    {
+      // dd($request->all());
       // user instance
      $user = Auth::user();
 
