@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\ProfileUpdateRequest;
+use App\Http\Requests\Admin\ProfilePasswordUpdateRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
@@ -24,5 +25,14 @@ class ProfileController extends Controller
      
      
      return redirect()->back()->with('status', 'Admin Updated Successfully!');
+   }
+   public function updatePassword(ProfilePasswordUpdateRequest $request)
+   {
+      // dd($request->all());
+       $user = Auth::user();
+       $user->password = bcrypt($request->password); //new pwd
+       $user->save();
+      
+       return redirect()->back()->with('status', 'Password Updated Successfully!');
    }
 }

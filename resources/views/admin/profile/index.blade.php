@@ -36,7 +36,9 @@
                   
                   </div>
                   <div class="card-body">
-                    <form action="" method="POST">
+                    <form action="{{route('profile_password_update')}}" method="POST">
+                         @csrf
+                         @method('PUT')
                          <div class="form-group">
                            <label>Current Password</label>
                            <input type="password" class="form-control" name="current_password">
