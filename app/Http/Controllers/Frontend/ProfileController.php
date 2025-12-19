@@ -42,4 +42,13 @@ class ProfileController extends Controller
 
         return redirect()->back()->with('status', 'Avatar Updated Successfully!');
     }
+
+    public function logout(Request $request)
+  {
+    Auth::guard('web')->logout();        // déconnecte le guard admin
+    $request->session()->invalidate();      // invalide la session
+    $request->session()->regenerateToken(); // nouveau token CSRF
+
+    return redirect()->route('login'); // redirige vers login admin
+  }
 }
