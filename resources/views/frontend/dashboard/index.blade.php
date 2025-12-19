@@ -39,9 +39,11 @@
                                 <div class="dasboard_header_img">
                                     <img src="{{auth()->user()->avatar}}" alt="user" class="img-fluid w-100">
                                     <label for="upload"><i class="far fa-camera"></i></label>
-                                    <form id="avatar_form">
-                                        <input type="file" id="upload" hidden name="avatar" id="upload">
+                                    <form id="avatar_form" enctype="multipart/form-data">
+                                       @csrf
+                                       <input type="file" id="upload" name="avatar" hidden>
                                     </form>
+
                                 </div>
                                 <h2>{{Auth()->user()->name}}</h2>
                             </div>
@@ -1239,9 +1241,43 @@
 
  <script>
     $(document).ready(function(){
-        $('#upload').on('change', function(){
-            alert("did it")
-        })
+        
+          $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+         });
+        
+         $('#upload').on('change', function () {
+           let formData = new FormData($('#avatar_form')[0]);
+
+           $.ajax({
+             url: "{{ route('profile.avatar.update') }}",
+             type: 'POST',
+             data: formData,
+             processData: false,
+             contentType: false,
+             success: function (response) {
+                // if (response && response.status === 'success') {
+                //    window.location.reload();
+                // }
+                 if (response.status === 'success') {
+                   iziToast.success({
+                       title: 'Succès',
+                       message: 'Photo de profil mise à jour',
+                       position: 'topRight'
+                   });
+
+                   setTimeout(() => {
+                       window.location.reload();
+                   }, 1000);
+                }
+             },
+             error: function (error) {
+                console.error(error);
+             }
+        });
+    });
     })
  </script>
 

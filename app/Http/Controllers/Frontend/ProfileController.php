@@ -7,9 +7,12 @@ use App\Http\Requests\Frontend\ProfilePasswordUpdateRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
+use App\Traits\FileUploadTrait;
 
 class ProfileController extends Controller
 {
+    use FileUploadTrait;
+    
     public function updateProfile(ProfileUpdateRequest $request)
     {
       //dd($request->all());
@@ -30,6 +33,13 @@ class ProfileController extends Controller
     }
     public function updateAvatar(Request $request)
     {
-        dd($request->all());
+        // Handle img file 
+        $imagePath = $this->uploadImage($request, 'avatar');
+
+        $user = Auth::user();
+        $user->avatar = $imagePath;
+        $user->save();
+
+        return redirect()->back()->with('status', 'Avatar Updated Successfully!');
     }
 }
